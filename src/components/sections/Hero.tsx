@@ -2,17 +2,25 @@
 "use client";
 
 import { Suspense, MouseEvent, useRef } from "react";
-import { motion, useMotionTemplate, useMotionValue, useInView } from "framer-motion";
-import { HeroSplineBackground } from "./HeroSplineBackground";
+import { motion, useMotionTemplate, useMotionValue } from "framer-motion";
+import dynamic from "next/dynamic";
 import { TransitionLink } from "@/components/layout/PageTransition";
+
+// Dynamic import to avoid SSR issues with Three.js / WebGL
+const HeroCubeBackground = dynamic(
+  () =>
+    import("@/components/three/HeroCubeBackground").then(
+      (mod) => mod.HeroCubeBackground
+    ),
+  {
+    ssr: false,
+    loading: () => <div className="absolute inset-0 bg-[#0A0A0A]" />,
+  }
+);
 
 export function Hero() {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
-  const heroRef = useRef<HTMLElement>(null);
-  
-  // PERFORMANCE FIX: Only render the heavy 3D scene when near the viewport
-  const isHeroInView = useInView(heroRef, { margin: "400px 0px" });
 
   const handleMouseMove = (e: MouseEvent<HTMLElement>) => {
     const { currentTarget, clientX, clientY } = e;
@@ -24,16 +32,13 @@ export function Hero() {
 
   return (
     <section 
-      ref={heroRef}
-      className="hero-section relative flex min-h-screen items-center justify-center overflow-hidden bg-hero-bg font-sora"
+      className="hero-section relative flex min-h-screen items-center justify-center overflow-hidden bg-[#0A0A0A] font-sora"
       onMouseMove={handleMouseMove}
     >
-      {/* Conditionally render 3D Background */}
-      {isHeroInView && (
-        <Suspense fallback={<div className="absolute inset-0 bg-hero-bg" />}>
-          <HeroSplineBackground />
-        </Suspense>
-      )}
+      {/* 3D Background — always mounted, no useInView gating */}
+      <Suspense fallback={<div className="absolute inset-0 bg-[#0A0A0A]" />}>
+        <HeroCubeBackground />
+      </Suspense>
 
       {/* Interactive Blue Mouse Hover Effect */}
       <motion.div
@@ -44,7 +49,7 @@ export function Hero() {
       />
 
       {/* Dark overlay to ensure text readability */}
-      <div className="pointer-events-none absolute inset-0 z-[1] bg-hero-bg/40" />
+      <div className="pointer-events-none absolute inset-0 z-[1] bg-[#0A0A0A]/40" />
 
       {/* Centered Content Container */}
       <div className="pointer-events-none relative z-10 flex w-full max-w-5xl flex-col items-center justify-center px-6 text-center">

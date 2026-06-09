@@ -11,16 +11,19 @@ import { FinalCTA } from "@/components/sections/FinalCTA";
 export default function HomePage() {
   return (
     <>
-      <Header />
-      <main>
-         <Hero />
-        <LogoWall /> 
-        <FeaturedWork /> 
-         <Industries /> 
-        <Insights />
-        <WhyUs />
-        <FinalCTA />
-      </main>
+      {/* Main content sits above the sticky footer */}
+      <div className="relative z-10 bg-[#f8fafc]">
+        <Header />
+        <main>
+           <Hero />
+          <LogoWall /> 
+          <FeaturedWork /> 
+           <Industries /> 
+          <Insights />
+          <WhyUs />
+          <FinalCTA />
+        </main>
+      </div>
       <Footer />
     </>
   );
