@@ -32,6 +32,7 @@ export function LogoWall() {
   return (
     <section
       ref={sectionRef}
+      // Reverted to white background with subtle top/bottom borders
       className="section-padding overflow-hidden border-y border-slate-100 bg-white"
     >
       <div className="mx-auto max-w-7xl">
@@ -45,6 +46,7 @@ export function LogoWall() {
         </motion.p>
 
         <div className="relative">
+          {/* Gradients updated to fade into white */}
           <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-white to-transparent" />
           <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-white to-transparent" />
 
@@ -55,6 +57,7 @@ export function LogoWall() {
                   key={`${partner}-${i}`}
                   className="logo-wall-item flex shrink-0 items-center justify-center"
                 >
+                  {/* Logos: Soft grey fading to brand blue on hover */}
                   <span className="text-2xl font-bold tracking-tight text-slate-300 transition-colors duration-300 hover:text-brand md:text-3xl">
                     {partner}
                   </span>
@@ -67,3 +70,4 @@ export function LogoWall() {
     </section>
   );
 }
+
