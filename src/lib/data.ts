@@ -8,14 +8,10 @@ export const navLinks = [
 ] as const;
 
 export const partners = [
-  "Shopify",
-  "Amazon",
-  "Google",
-  "Meta",
-  "HubSpot",
-  "Salesforce",
-  "Stripe",
-  "Adobe",
+  { name: "Shopify Partner", logo: "/partners/1.png" },
+  { name: "Amazon Ads Advanced Partner", logo: "/partners/2.png" },
+  { name: "Google Ads Certified Partner", logo: "/partners/3.png" },
+  { name: "Meta Business Partners", logo: "/partners/4.png" },
 ] as const;
 
 export const featuredWork = [
