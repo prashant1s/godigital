@@ -4,7 +4,6 @@ export const projectSchema = defineType({
   name: "project",
   title: "Portfolio Projects",
   type: "document",
-  // 1. Define Tabs/Groups to organize the studio UI
   groups: [
     { name: "meta", title: "1. Brand Details", default: true },
     { name: "hero", title: "2. Hero Section" },

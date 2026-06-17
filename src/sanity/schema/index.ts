@@ -1,5 +1,7 @@
 import { projectSchema } from "./project";
+import { partnerSchema } from "./partner"; // Add this
 
-export const schema = {
-  types: [projectSchema],
-};
+export const schemaTypes = [
+  projectSchema,
+  partnerSchema,
+];
