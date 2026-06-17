@@ -201,13 +201,16 @@ import { partnersList } from "@/lib/data";
 type SanityPartner = {
   _id: string;
   name: string;
-  logoUrl: string;
+  logoUrl?: string | null;
 };
+
+const isExternalLogo = (src: string) =>
+  src.startsWith("http://") || src.startsWith("https://");
 
 export function AllLogos({ sanityLogos = [] }: { sanityLogos?: SanityPartner[] }) {
   // 1. Format Sanity logos to match your hardcoded list structure
   const formattedSanityLogos = sanityLogos.map((logo) => ({
-    id: logo._id,
+    id: logo._id || `sanity-${logo.name}`, // Fallback ID just in case
     name: logo.name,
     logo: logo.logoUrl, // Using the resolved URL from Sanity CDN
   }));
@@ -266,6 +269,7 @@ export function AllLogos({ sanityLogos = [] }: { sanityLogos?: SanityPartner[] }
                       src={partner.logo}
                       alt={partner.name}
                       fill
+                      unoptimized={isExternalLogo(partner.logo)}
                       className="object-contain opacity-50 grayscale transition-all duration-300 group-hover:opacity-100 group-hover:grayscale-0"
                     />
                   </div>
@@ -295,6 +299,7 @@ export function AllLogos({ sanityLogos = [] }: { sanityLogos?: SanityPartner[] }
                       src={partner.logo}
                       alt={partner.name}
                       fill
+                      unoptimized={isExternalLogo(partner.logo)}
                       className="object-contain opacity-50 grayscale transition-all duration-300 group-hover:opacity-100 group-hover:grayscale-0"
                     />
                   </div>

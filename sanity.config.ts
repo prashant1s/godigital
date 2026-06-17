@@ -1,6 +1,6 @@
 import { defineConfig } from "sanity";
 import { structureTool } from "sanity/structure";
-import { projectSchema } from "./src/sanity/schema/project";
+import { schemaTypes } from "./src/sanity/schema";
 
 export default defineConfig({
   basePath: "/studio",
@@ -9,6 +9,6 @@ export default defineConfig({
   title: "Go Digital Admin",
   plugins: [structureTool()],
   schema: {
-    types: [projectSchema],
+    types: schemaTypes,
   },
 });
