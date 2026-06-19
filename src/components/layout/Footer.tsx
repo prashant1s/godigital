@@ -89,7 +89,7 @@ export function Footer() {
         <div ref={footerInnerRef}>
           {/* ── Large Brand Name ── */}
           <div className="footer-animate flex items-end justify-center px-6 pb-6 pt-20 md:pt-28 lg:pt-32">
-            <h2 className="text-[16vw] font-black leading-[0.85] tracking-tighter text-[#0A0A0A] md:text-[11vw]">
+            <h2 className="text-[16vw] font-black leading-[0.85] tracking-tighter text-[#0A0A0A] drop-shadow-md md:text-[11vw]">
               Go<span className="text-[#6495ED]"> Digital</span>
             </h2>
           </div>
@@ -110,14 +110,17 @@ export function Footer() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={label}
-                    className="group relative flex h-12 w-12 items-center justify-center focus:outline-none"
+                    // INCREASED SHADOW: Changed drop-shadow-sm to drop-shadow-md, and made the hover shadow much deeper
+                    className="group relative flex h-12 w-12 items-center justify-center focus:outline-none drop-shadow-md transition-all duration-300 hover:drop-shadow-[0_12px_28px_rgba(100,149,237,0.45)]"
                   >
-                    {/* Shadow Layer for 3D depth effect */}
-                    <div className="absolute inset-0 translate-y-1 rounded-xl bg-gray-200/80 transition-all duration-200 group-hover:bg-[#6495ED]/20 group-active:translate-y-0.5" />
+                    {/* 3D SHADOW LAYER: Pushed it further down (translate-y-1.5) and made it darker (bg-gray-300) */}
+                    <div className="absolute inset-0 translate-y-1.5 rounded-xl bg-gray-300 transition-all duration-200 group-hover:bg-[#6495ED]/40 group-active:translate-y-0.5" />
                     
-                    {/* Main Button Layer: Now solid blue, switches directly to white text/bg inverse on hover */}
-                    <div className="relative flex h-full w-full items-center justify-center rounded-xl border border-[#6495ED] bg-[#6495ED] text-white shadow-[inset_0_1px_1px_rgba(255,255,255,0.2)] transition-all duration-300 group-hover:-translate-y-0.5 group-hover:bg-white group-hover:text-[#6495ED] group-hover:shadow-lg group-hover:shadow-[#6495ED]/10 group-active:translate-y-0.5">
-                      <BrandIcon label={label} abbr={abbr} />
+                    {/* Main Button Layer */}
+                    <div className="relative flex h-full w-full items-center justify-center rounded-xl border border-gray-200 bg-white text-gray-400 transition-all duration-300 group-hover:-translate-y-0.5 group-hover:border-[#6495ED] group-hover:bg-[#6495ED] group-hover:text-white group-active:translate-y-0.5">
+                      <span className="transition-all duration-300 group-hover:scale-110 group-hover:drop-shadow-lg">
+                        <BrandIcon label={label} abbr={abbr} />
+                      </span>
                     </div>
                   </a>
                 ))}
@@ -150,3 +153,4 @@ export function Footer() {
       </div>
   );
 }
+
