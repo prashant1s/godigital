@@ -40,7 +40,17 @@ export const projectSchema = defineType({
       group: "meta",
       description: "Appears on the portfolio grid pill (e.g., Retail, E-commerce)",
       options: {
-        list: ["E-commerce", "Retail", "Health & Wellness", "Personal Care"],
+        list: [
+          "E-commerce", 
+          "Retail", 
+          "Health & Wellness", 
+          "Personal Care",
+          "Beauty & Skin Care",          
+          "Hospitality & Food",          
+          "Fashion & Lifestyle",         
+          "Manufacturing & Packaging",   
+          "Automotive"                  
+        ],
       },
     }),
     defineField({
