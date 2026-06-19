@@ -350,8 +350,18 @@ export default function ProjectTemplate({ project }: { project: any }) {
                   sizes="100vw"
                   className="absolute inset-0 z-0 object-cover"
                 />
-                {/* UPDATED: Added backdrop-blur-[4px] and darkened the gradient for perfect text visibility */}
-                <div className="absolute inset-0 z-[1] bg-gradient-to-r from-black/80 via-black/50 to-transparent backdrop-blur-[4px] pointer-events-none" />
+                
+                {/* 1. Dark Gradient: Locks to the left and fades out */}
+                <div className="absolute inset-y-0 left-0 z-[1] w-full md:w-[75%] bg-gradient-to-r from-black/90 via-black/60 to-transparent pointer-events-none" />
+                
+                {/* 2. Glass Blur: Restricted only to the left side and masked to fade smoothly */}
+                <div 
+                  className="absolute inset-y-0 left-0 z-[1] w-full md:w-[60%] backdrop-blur-[10px] pointer-events-none"
+                  style={{
+                    maskImage: "linear-gradient(to right, black 50%, transparent 100%)",
+                    WebkitMaskImage: "linear-gradient(to right, black 50%, transparent 100%)"
+                  }}
+                />
               </>
             )}
 
