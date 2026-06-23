@@ -163,6 +163,7 @@ export default async function CareersPage() {
               moveParticlesOnHover={true}
               alphaParticles={true}
               disableRotation={false}
+              className="w-full h-full"
             />
           </div>
 
