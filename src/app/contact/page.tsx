@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { ReactLenis } from "@studio-freight/react-lenis";
 import { motion, useTransform, useSpring, useMotionValue } from "framer-motion";
 import gsap from "gsap";
@@ -12,7 +12,10 @@ import {
   Send, 
   Calendar, 
   Mail, 
-  Phone
+  MapPin, 
+  Phone,
+  Sparkles,
+  AlertCircle
 } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -80,6 +83,43 @@ export default function ContactPage() {
     return () => ctx.revert();
   }, []);
 
+  // --- FORM STATE & RESEND LOGIC ---
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setErrorMessage("");
+
+    // Gather data from the form inputs
+    const formData = new FormData(e.currentTarget);
+    const data = Object.fromEntries(formData);
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to send message");
+      }
+
+      // Show success animation
+      setIsSuccess(true);
+    } catch (error) {
+      console.error(error);
+      setErrorMessage("Something went wrong. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <ReactLenis root options={{ lerp: 0.08, smoothWheel: true }}>
       <Header />
@@ -89,7 +129,7 @@ export default function ContactPage() {
         onMouseMove={handleMouseMove}
       >
         {/* ========================================= */}
-        {/* HERO SECTION - TIGHT & COMPACT, 100VH MAX */}
+        {/* HERO SECTION */}
         {/* ========================================= */}
         <section 
           ref={heroRef} 
@@ -101,11 +141,7 @@ export default function ContactPage() {
           <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay pointer-events-none z-0" />
           <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-purple-500/10 rounded-full blur-[140px] pointer-events-none z-0" />
 
-          {/* ======================== */}
-          {/* TOP CONTENT (COMPACT) */}
-          {/* ======================== */}
           <div className="relative z-20 flex flex-col items-center text-center px-6 w-full max-w-[1200px] mx-auto">
-            
             <h1 
               ref={headlineRef} 
               className="text-[34px] md:text-[48px] lg:text-[64px] font-bold tracking-tight text-white leading-[1] max-w-[700px] mb-8 drop-shadow-xl"
@@ -124,7 +160,7 @@ export default function ContactPage() {
               </button>
               
               <a 
-                href="https://calendly.com" 
+                href="https://calendly.com/godigital74/30min" 
                 target="_blank" 
                 rel="noreferrer"
                 className="group inline-flex items-center justify-center gap-2 px-6 py-3 bg-white/5 backdrop-blur-md border border-white/20 text-white rounded-full font-bold text-sm hover:bg-white/10 transition-all duration-300"
@@ -142,26 +178,17 @@ export default function ContactPage() {
             ref={splineRef}
             className="absolute left-1/2 -translate-x-1/2 bottom-[-5vh] w-full max-w-[1000px] h-[70vh] flex justify-center items-end pointer-events-none z-10"
           >
-            {/* Floating Glass Cards anchored to the 3D space */}
-            <motion.div 
-              style={{ x: floatX1, y: floatY1 }}
-              className="absolute top-[30%] left-[20%] lg:left-[28%] z-20 hidden md:block"
-            >
+            {/* Floating Glass Cards */}
+            <motion.div style={{ x: floatX1, y: floatY1 }} className="absolute top-[30%] left-[20%] lg:left-[28%] z-20 hidden md:block">
               <FloatingCard icon={<Mail className="w-4 h-4 text-white"/>} label="hello@godigital.com" delay={0} />
             </motion.div>
             
-            <motion.div 
-              style={{ x: floatX2, y: floatY2 }}
-              className="absolute top-[50%] right-[20%] lg:right-[28%] z-20 hidden md:block"
-            >
+            <motion.div style={{ x: floatX2, y: floatY2 }} className="absolute top-[50%] right-[20%] lg:right-[28%] z-20 hidden md:block">
               <FloatingCard icon={<Phone className="w-4 h-4 text-white"/>} label="+91 98765 43210" delay={1} />
             </motion.div>
 
-            {/* Added LinkedIn Card */}
-            <motion.div 
-              style={{ x: floatX2, y: floatY1 }}
-              className="absolute top-[70%] left-[12%] lg:left-[20%] z-20 hidden md:block"
-            >
+            {/* LinkedIn Card */}
+            <motion.div style={{ x: floatX2, y: floatY1 }} className="absolute top-[70%] left-[12%] lg:left-[20%] z-20 hidden md:block">
               <FloatingCard 
                 delay={0.6} 
                 icon={
@@ -183,40 +210,96 @@ export default function ContactPage() {
               />
             </div>
           </div>
-
         </section>
 
         {/* ========================================= */}
-        {/* GOOGLE FORM SECTION */}
+        {/* CONTACT FORM SECTION */}
         {/* ========================================= */}
         <section id="contact-form" className="relative py-24 md:py-32 px-6 bg-[#0A0A0A]">
-          <div className="max-w-4xl mx-auto flex flex-col items-center">
+          <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8">
             
-            <div className="text-center mb-12">
-              <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white">Drop us a line.</h2>
-              <p className="text-gray-400 text-lg">
-                Fill out the form and our team will get back to you within 24 hours.
+            <div className="lg:col-span-5 flex flex-col justify-center text-white">
+              <h2 className="text-4xl md:text-5xl font-bold mb-6">Drop us a line.</h2>
+              <p className="text-gray-400 mb-12 text-lg">
+                Fill out the form and our team will get back to you within 24 hours. We can't wait to hear from you.
               </p>
+
+              <div className="space-y-8">
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 rounded-full bg-[#2F7D4E]/20 flex items-center justify-center shrink-0 border border-[#2F7D4E]/30">
+                    <Mail className="w-5 h-5 text-[#79C267]" />
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-500 font-medium mb-1">Email Us</p>
+                    <p className="text-lg font-semibold text-white">hello@godigital.com</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 rounded-full bg-[#2F7D4E]/20 flex items-center justify-center shrink-0 border border-[#2F7D4E]/30">
+                    <MapPin className="w-5 h-5 text-[#79C267]" />
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-500 font-medium mb-1">Visit Studio</p>
+                    <p className="text-lg font-semibold text-white">123 Innovation Drive,<br/>Tech City, 400001</p>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            <div ref={formRef} className="w-full">
-              <div className="bg-[#111111]/80 backdrop-blur-xl border border-white/10 rounded-[2rem] p-4 md:p-8 shadow-2xl relative overflow-hidden flex justify-center items-start min-h-[800px] w-full">
-                
-                {/* Form Background Glow */}
+            <div ref={formRef} className="lg:col-span-7">
+              <div className="bg-[#111111]/80 backdrop-blur-xl border border-white/10 rounded-[2rem] p-8 md:p-12 shadow-2xl relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-64 h-64 bg-[#79C267]/10 rounded-full blur-[80px] pointer-events-none" />
 
-                <iframe 
-                  src="https://www.google.com" 
-                  width="100%" 
-                  height="100%" 
-                  frameBorder="0" 
-                  marginHeight={0} 
-                  marginWidth={0}
-                  className="w-full h-full min-h-[750px] relative z-10"
-                >
-                  Loading…
-                </iframe>
+                {isSuccess ? (
+                  <div className="flex flex-col items-center justify-center h-full py-20 text-center animate-in fade-in zoom-in duration-500">
+                    <div className="w-20 h-20 bg-green-500/20 rounded-full flex items-center justify-center mb-6 border border-green-500/50">
+                      <Sparkles className="w-10 h-10 text-green-400" />
+                    </div>
+                    <h3 className="text-3xl font-bold text-white mb-2">Message Sent!</h3>
+                    <p className="text-gray-400">Our team is reviewing it now. Talk soon.</p>
+                  </div>
+                ) : (
+                  <form onSubmit={handleSubmit} className="relative z-10 space-y-6">
+                    {/* Error Message Display */}
+                    {errorMessage && (
+                      <div className="flex items-center gap-2 text-red-400 bg-red-400/10 border border-red-400/20 p-4 rounded-xl text-sm font-medium">
+                        <AlertCircle className="w-4 h-4" />
+                        {errorMessage}
+                      </div>
+                    )}
 
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div className="space-y-2 group">
+                        <label htmlFor="firstName" className="text-sm font-medium text-gray-400 group-focus-within:text-[#79C267] transition-colors">First Name</label>
+                        <input id="firstName" name="firstName" required type="text" className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-white placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-[#79C267] focus:bg-white/10 transition-all" placeholder="John" />
+                      </div>
+                      <div className="space-y-2 group">
+                        <label htmlFor="lastName" className="text-sm font-medium text-gray-400 group-focus-within:text-[#79C267] transition-colors">Last Name</label>
+                        <input id="lastName" name="lastName" required type="text" className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-white placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-[#79C267] focus:bg-white/10 transition-all" placeholder="Doe" />
+                      </div>
+                    </div>
+
+                    <div className="space-y-2 group">
+                      <label htmlFor="email" className="text-sm font-medium text-gray-400 group-focus-within:text-[#79C267] transition-colors">Email Address</label>
+                      <input id="email" name="email" required type="email" className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-white placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-[#79C267] focus:bg-white/10 transition-all" placeholder="john@company.com" />
+                    </div>
+
+                    <div className="space-y-2 group">
+                      <label htmlFor="message" className="text-sm font-medium text-gray-400 group-focus-within:text-[#79C267] transition-colors">Your Message</label>
+                      <textarea id="message" name="message" required rows={4} className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-white placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-[#79C267] focus:bg-white/10 transition-all resize-none" placeholder="Tell us about your project..."></textarea>
+                    </div>
+
+                    <button 
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="w-full relative overflow-hidden group bg-gradient-to-r from-[#2F7D4E] to-[#79C267] text-white rounded-xl py-4 font-bold text-base transition-all hover:scale-[1.02] active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed"
+                    >
+                      {isSubmitting ? "Sending..." : "Send Message"}
+                      <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-in-out" />
+                    </button>
+                  </form>
+                )}
               </div>
             </div>
 

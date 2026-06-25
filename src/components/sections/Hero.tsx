@@ -33,7 +33,7 @@ export function Hero() {
           style={{ animationDelay: "0.6s" }}
         >
           <TransitionLink
-            href="/contact"
+            href="https://calendly.com/godigital74/30min"
             className="inline-flex items-center justify-center rounded-lg bg-[#6495ED] px-8 py-4 text-base font-medium text-white transition-all hover:bg-[#4F7DF3] hover:shadow-[0_0_20px_rgba(100,149,237,0.3)] active:scale-[0.98]"
           >
             Book a Call

@@ -477,7 +477,7 @@ export function Header() {
                               <div className="grid w-[60%] grid-cols-2 gap-5 p-6">
                                 {/* Graphic Card 1 */}
                                 <TransitionLink
-                                  href="/insights/influencer-marketing"
+                                  href="/solutions"
                                   className="group/card block"
                                 >
                                   {/* Removed background, borders, and shadows so the box is invisible */}
@@ -494,7 +494,7 @@ export function Header() {
 
                                 {/* Graphic Card 2 */}
                                 <TransitionLink
-                                  href="/insights/performance-marketing"
+                                  href="/solutions"
                                   className="group/card block"
                                 >
                                   <div className="relative aspect-square w-full overflow-visible bg-transparent transition-all duration-500">

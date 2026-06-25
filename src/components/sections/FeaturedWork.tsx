@@ -239,15 +239,15 @@ export function FeaturedWork({ projects = [] }: { projects?: Project[] }) {
             ) : (
               <>
                 {/* Floating Hollow "<" Left Arrow Button */}
-                {projects.length > 2 && (
-                  <button
-                    onClick={scrollLeft}
-                    className="absolute -left-5 md:-left-6 top-[42%] z-20 hidden md:flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-gray-300 bg-white/60 backdrop-blur-md shadow-sm transition-all hover:border-[#6495ED] hover:text-[#6495ED] hover:bg-white hover:scale-110"
-                    aria-label="Scroll left to view previous projects"
-                  >
-                    <ChevronLeft className="h-6 w-6 text-gray-700 hover:text-[#6495ED]" strokeWidth={1.5} />
-                  </button>
-                )}
+                {/* {projects.length > 2 && ( */}
+                  {/*  <button
+                     onClick={scrollLeft}
+                     className="absolute -left-5 md:-left-6 top-[42%] z-20 hidden md:flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-gray-300 bg-white/60 backdrop-blur-md shadow-sm transition-all hover:border-[#6495ED] hover:text-[#6495ED] hover:bg-white hover:scale-110"
+                     aria-label="Scroll left to view previous projects"
+                   >
+                     <ChevronLeft className="h-6 w-6 text-gray-700 hover:text-[#6495ED]" strokeWidth={1.5} />
+                   </button>
+                 )} */}
 
                 <motion.div
                   ref={scrollRef}
