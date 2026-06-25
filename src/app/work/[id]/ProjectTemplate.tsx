@@ -696,7 +696,7 @@ export default function ProjectTemplate({ project }: { project: any }) {
         </section>
 
         {/* 2. SCROLL-REVEAL BANNER SECTION */}
-        <div className="px-4 md:px-8 mx-auto w-full max-w-[1400px] pb-12">
+        <div className="px-4 md:px-8 mx-auto w-full max-w-[1600px] pb-12">
           {/* Banner transition: fades in and scales up as you scroll to it */}
           <motion.section 
             initial={{ opacity: 0, scale: 0.95, y: 40 }}
