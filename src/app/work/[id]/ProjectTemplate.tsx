@@ -748,7 +748,7 @@ export default function ProjectTemplate({ project }: { project: any }) {
         )}
 
         {/* 4. CHALLENGE & STRATEGY (KEEPING AS IS) */}
-        <section className="px-6 py-24 md:py-32">
+        <section className="px-6 py-20 md:py-20">
           <div className="mx-auto max-w-7xl">
             {project.challenges && project.challenges.length > 0 && (
               <motion.div
@@ -798,7 +798,7 @@ export default function ProjectTemplate({ project }: { project: any }) {
 
           {/* 5. FEATURED IMAGES */}
         {project.images && project.images.length > 0 && (
-          <section className="bg-slate-50 px-6 py-24 md:py-32">
+          <section className="bg-slate-50 px-6 py-14 md:py-12">
             <div className="mx-auto max-w-7xl">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -864,7 +864,7 @@ export default function ProjectTemplate({ project }: { project: any }) {
         )}
 
         {/* 7. OUTCOME & LEARNINGS */}
-        <section className="px-6 py-24 md:py-32">
+        <section className="px-6 py-14 md:py-10">
           <div className="mx-auto max-w-7xl">
             <motion.div
               initial="hidden"

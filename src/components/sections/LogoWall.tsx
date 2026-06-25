@@ -17,7 +17,7 @@ export function LogoWall() {
       // Replaced 'section-padding' with explicit smaller padding (py-12 md:py-16)
       className="border-y border-slate-100 bg-white py-12 md:py-12"
     >
-      <div className="mx-auto max-w-7xl">
+      <div className="mx-auto max-w-8xl">
         <motion.p
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -29,24 +29,34 @@ export function LogoWall() {
           Our Partners
         </motion.p>
 
-        <div className="flex flex-wrap items-center justify-center gap-12 px-8 md:gap-24 lg:gap-32">
-          {partners.map((partner, i) => (
-            <div
-              key={`${partner.name}-${i}`}
-              className="flex shrink-0 items-center justify-center"
-            >
-              <Image
-                src={partner.logo}
-                alt={partner.name}
-                // Increased base resolution again to maintain maximum crispness
-                width={500} 
-                height={200}
-                quality={100}
-                // Bumped up the rendering heights: h-24 (mobile), h-32 (tablet), h-40 (desktop)
-                className="h-24 w-auto object-contain md:h-32 lg:h-40" 
-              />
-            </div>
-          ))}
+        <div className="flex flex-wrap items-center justify-center gap-10 px-6 md:gap-18 lg:gap-15">
+          {partners.map((partner, i) => {
+            // 1. We declare the condition here inside the map loop
+            const isHeavyLogo = partner.name?.toLowerCase().includes("hotstar") || partner.name?.toLowerCase().includes("jio");
+
+            // 2. We use 'return' to render the JSX
+            return (
+              <div
+                key={`${partner.name}-${i}`}
+                className="flex shrink-0 items-center justify-center"
+              >
+                <Image
+                  src={partner.logo}
+                  alt={partner.name}
+                  // Increased base resolution again to maintain maximum crispness
+                  width={500} 
+                  height={200}
+                  quality={100}
+                  // Bumped up the rendering heights, but scaling down JioHotstar
+                  className={`w-auto object-contain transition-all ${
+                    isHeavyLogo 
+                      ? "h-12 md:h-16 lg:h-20 rounded-xl shadow-sm" 
+                      : "h-24 md:h-32 lg:h-40"                       
+                  }`}
+                />
+              </div>
+            );
+          })}
         </div>
       </div>
     </motion.section>

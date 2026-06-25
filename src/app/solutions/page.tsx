@@ -172,6 +172,7 @@ export default function SolutionsPage() {
                 <p className="text-xs text-gray-400 mb-4">Across Platforms</p>
                 <div className="flex items-center gap-3">
                   <Image src="https://cdn.simpleicons.org/meta/white" alt="Meta" width={40} height={16} className="h-4 w-auto object-contain" unoptimized />
+                  <Image src="https://cdn.simpleicons.org/tiktok/FFFFFF" alt="TikTok" width={20} height={20} className="h-5 w-auto object-contain" unoptimized />
                   <Image src="https://cdn.simpleicons.org/googleads" alt="Google Ads" width={40} height={20} className="h-5 w-auto object-contain" unoptimized />
                   <Image src="https://cdn.simpleicons.org/snapchat/FFFC00" alt="Snapchat" width={20} height={20} className="h-5 w-auto object-contain" unoptimized />
                   <Image src="https://cdn.simpleicons.org/instagram/E4405F" alt="Snapchat" width={20} height={20} className="h-5 w-auto object-contain" unoptimized />
@@ -203,7 +204,7 @@ export default function SolutionsPage() {
         {/* ========================================= */}
         {/* 2. THE GROWTH ENGINE FUNNEL */}
         {/* ========================================= */}
-        <section id="process" className="py-24 bg-[#FAFAFA] border-b border-gray-200">
+        <section id="process" className="py-20 bg-[#FAFAFA] border-b border-gray-200">
           <div className="mx-auto max-w-7xl px-6">
             <div className="flex flex-col lg:flex-row gap-16 items-start">
 
@@ -252,7 +253,7 @@ export default function SolutionsPage() {
         {/* ========================================= */}
         {/* 3. WHAT WE DO (SERVICES GRID) */}
         {/* ========================================= */}
-        <section className="py-24 bg-white">
+        <section className="py-15 bg-white">
           <div className="mx-auto max-w-7xl px-6">
 
             <div className="bg-[#0A0A0A] rounded-[2rem] p-8 md:p-12 shadow-2xl">
@@ -277,6 +278,7 @@ export default function SolutionsPage() {
                   <div className="flex items-center gap-3">
                     <Image src="https://cdn.simpleicons.org/meta/white" alt="Meta" width={40} height={16} className="h-4 w-auto object-contain" unoptimized />
                     <Image src="https://cdn.simpleicons.org/googleads" alt="Google Ads" width={40} height={20} className="h-5 w-auto object-contain" unoptimized />
+                    <Image src="https://cdn.simpleicons.org/tiktok/FFFFFF" alt="TikTok" width={20} height={20} className="h-5 w-auto object-contain" unoptimized />
                     <Image src="https://cdn.simpleicons.org/youtube/FF0000" alt="YouTube" width={20} height={16} className="h-4 w-auto object-contain" unoptimized />
                     <Image src="https://cdn.simpleicons.org/x/white" alt="TikTok" width={16} height={16} className="h-4 w-auto object-contain" unoptimized />
                     <Image src="https://cdn.simpleicons.org/snapchat/FFFC00" alt="Snapchat" width={20} height={20} className="h-5 w-auto object-contain" unoptimized />
